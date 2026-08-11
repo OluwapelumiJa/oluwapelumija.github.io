@@ -192,3 +192,92 @@ if(navLinks.length&&navSections.length){
   navSections.forEach(s=>observer.observe(s));
   setActive('top');
 }
+
+// =========================================================
+// CONTACT FORM — CLOUDFLARE WORKER + TELEGRAM
+// =========================================================
+
+const contactForm = document.querySelector('#contactForm');
+
+contactForm?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const submitButton = contactForm.querySelector('button[type="submit"]');
+  const originalButtonText = submitButton?.textContent;
+
+  // Get form fields
+  const name = document.querySelector('#name')?.value.trim() || '';
+  const email = document.querySelector('#email')?.value.trim() || '';
+  const projectTypeValue = document.querySelector('#projectType')?.value || '';
+  const otherProjectValue = document.querySelector('#otherProject')?.value.trim() || '';
+  const message = document.querySelector('#message')?.value.trim() || '';
+
+  // If "Other" is selected, use the custom project type
+  const project =
+    projectTypeValue === 'Other'
+      ? otherProjectValue
+      : projectTypeValue;
+
+  // Basic validation
+  if (!name || !email || !project || !message) {
+    alert('Please fill in all required fields.');
+    return;
+  }
+
+  // Change button while sending
+  if (submitButton) {
+    submitButton.disabled = true;
+    submitButton.textContent = 'SENDING...';
+  }
+
+  try {
+
+    const response = await fetch(
+      'https://ahmed-portfolio-contact.ahmedhakem286.workers.dev/',
+      {
+        method: 'POST',
+
+        headers: {
+          'Content-Type': 'application/json'
+        },
+
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          project: project,
+          message: message
+        })
+      }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok || !result.success) {
+      throw new Error('Message could not be sent.');
+    }
+
+    // Success
+    alert('Message sent successfully! I’ll get back to you soon.');
+
+    contactForm.reset();
+
+    // Hide the "Other project" field again
+    syncOtherProject();
+
+  } catch (error) {
+
+    console.error('Contact form error:', error);
+
+    alert(
+      'Something went wrong while sending your message. Please try again.'
+    );
+
+  } finally {
+
+    // Restore button
+    if (submitButton) {
+      submitButton.disabled = false;
+      submitButton.textContent = originalButtonText;
+    }
+  }
+});
