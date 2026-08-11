@@ -267,10 +267,10 @@
         </div>
         <div class="contact-right reveal">
           <p>Have a story, brand or idea that needs to move? Let’s turn it into something worth watching.</p>
-          <form class="contact-form" action="mailto:ahmedhakem286@gmail.com" method="post" enctype="text/plain">
+          <form id="contactForm" class="contact-form">
             <div class="form-grid">
-              <label><span class="mono">NAME</span><input name="name" placeholder="Your name" required></label>
-              <label><span class="mono">EMAIL</span><input name="email" type="email" placeholder="you@email.com" required></label>
+              <label><span class="mono">NAME</span><input id="name" name="name" placeholder="Your name" required></label>
+              <label><span class="mono">EMAIL</span><input id="email" name="email" type="email" placeholder="you@email.com" required></label>
             </div>
             <label><span class="mono">PROJECT TYPE</span>
               <select id="projectType" name="project" required>
@@ -284,7 +284,7 @@
               <span class="mono">YOUR PROJECT TYPE</span>
               <input id="otherProject" name="other_project" placeholder="What do you need help with?">
             </label>
-            <label><span class="mono">MESSAGE</span><textarea name="message" rows="4" placeholder="Tell me about your project..." required></textarea></label>
+            <label><span class="mono">MESSAGE</span><textarea id="message" name="message" rows="4" placeholder="Tell me about your project..." required></textarea></label>
             <button class="btn btn-primary" type="submit">Send Message <span>↗</span></button>
           </form>
           <a class="email-link" href="mailto:ahmedhakem286@gmail.com">ahmedhakem286@gmail.com <span>↗</span></a>
