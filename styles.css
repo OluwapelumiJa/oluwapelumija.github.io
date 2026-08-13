@@ -285,7 +285,7 @@ footer { display:flex; justify-content:space-between; padding:22px 24px; color:#
 }
 .cursor-dot {
   width:6px; height:6px; border-radius:50%; background:rgba(77,141,255,.9);
-  box-shadow:0 0 8px rgba(77,141,255,.9), 0 0 18px rgba(77,141,255,.9);
+  box-shadow:0 0 8px rgba(77,141,255,.9), 0 0 18px rgba(77,141,255,.9); filter:blur(2px);
 }
 .cursor-ring {
   width:36px; height:36px; border:1px solid rgba(77,141,255,.9); border-radius:50%;
@@ -306,9 +306,9 @@ footer { display:flex; justify-content:space-between; padding:22px 24px; color:#
 /* Tall editorial cursor when hovering text, inspired by the supplied reference. */
 .cursor-ring.text-hover {
     width: 25px;
-    height: 90px;
+    height: 80px;
 
-    border-radius: 50px;
+    border-radius: 40px;
 
     border-color: rgba(30, 115, 255, 0.95);
 
