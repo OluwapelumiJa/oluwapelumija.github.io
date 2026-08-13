@@ -296,11 +296,9 @@ document.querySelectorAll('.project-card').forEach(card => {
 
   card.addEventListener('click', (event) => {
 
-    // Don't trigger the fullscreen player when clicking
-    // an actual link or button inside the card.
     if (event.target.closest('a, button')) return;
 
-    const video = card.querySelector('.project-video');
+    const video = card.querySelector('video');
 
     if (!video) return;
 
@@ -308,13 +306,12 @@ document.querySelectorAll('.project-card').forEach(card => {
 
     if (!source) return;
 
-    // Get the full-quality video filename
-    let fullVideo = source.src;
+    // Convert preview filename to the original full-quality filename
+    const fullVideo = source.src.replace(
+      '-preview.mp4',
+      '.mp4'
+    );
 
-    // Replace the "-preview" part with the original filename.
-    fullVideo = fullVideo.replace('-preview.mp4', '.mp4');
-
-    // Load the full-quality video
     fullProjectVideo.src = fullVideo;
 
     videoModal.classList.add('active');
@@ -325,7 +322,7 @@ document.querySelectorAll('.project-card').forEach(card => {
     // Stop the hover preview
     video.pause();
 
-    // Start the full-quality video
+    // Play the full-quality video
     fullProjectVideo.play().catch(() => {});
 
   });
@@ -345,9 +342,11 @@ function closeVideoModal() {
   document.body.classList.remove('video-modal-open');
 }
 
-videoModalClose?.addEventListener('click', closeVideoModal);
+videoModalClose?.addEventListener(
+  'click',
+  closeVideoModal
+);
 
-// Clicking the dark background closes the player
 videoModal?.addEventListener('click', (event) => {
 
   if (event.target === videoModal) {
@@ -356,7 +355,6 @@ videoModal?.addEventListener('click', (event) => {
 
 });
 
-// ESC closes the player
 document.addEventListener('keydown', (event) => {
 
   if (
