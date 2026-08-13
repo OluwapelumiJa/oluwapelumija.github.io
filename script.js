@@ -375,3 +375,36 @@ document.addEventListener('contextmenu', (e) => {
     e.preventDefault();
   }
 });
+
+
+// =========================================================
+// TEXT HOVER CURSOR
+// =========================================================
+
+const textTargets = document.querySelectorAll(
+  'h1, h2, h3, h4, h5, p, span, em, strong, small, label, .mono'
+);
+
+textTargets.forEach(el => {
+
+  el.addEventListener('mouseenter', () => {
+
+    if (!cursorRing || !cursorDot) return;
+
+    cursorRing.classList.remove('hover');
+    cursorRing.classList.add('text-hover');
+
+    cursorDot.classList.add('text-hover');
+
+  });
+
+  el.addEventListener('mouseleave', () => {
+
+    if (!cursorRing || !cursorDot) return;
+
+    cursorRing.classList.remove('text-hover');
+    cursorDot.classList.remove('text-hover');
+
+  });
+
+});
