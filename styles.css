@@ -599,3 +599,24 @@ body.video-modal-open {
     cursor: auto;
   }
 }
+
+/* timeline shit*/
+@media (max-width: 768px) {
+
+  .timeline-track {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    padding-bottom: 12px;
+  }
+
+  .timeline-track::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .timeline-track > * {
+    flex-shrink: 0;
+  }
+
+}
