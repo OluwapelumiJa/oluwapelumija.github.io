@@ -559,3 +559,43 @@ body.video-modal-open {
     font-size: 26px;
   }
 }
+
+/* Custom cursor - desktop only */
+@media (min-width: 769px) {
+  .cursor-dot,
+  .cursor-ring {
+    display: block;
+    opacity: 1;
+    pointer-events: none;
+  }
+
+  body {
+    cursor: none;
+  }
+
+  a,
+  button,
+  input,
+  textarea,
+  select,
+  .project-card {
+    cursor: none;
+  }
+}
+
+/* Keep normal cursor on phones/tablets */
+@media (max-width: 768px) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none !important;
+  }
+
+  body,
+  a,
+  button,
+  input,
+  textarea,
+  select {
+    cursor: auto;
+  }
+}
