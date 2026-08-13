@@ -451,5 +451,110 @@ h1, h2, h3, .hero h1, .hero h2, .section-head h2, .contact h2,
 @media(max-width:900px){.site-nav{gap:18px}.site-nav .nav-link{font-size:12px}}
 @media(max-width:680px){
  .site-nav{gap:11px;flex-wrap:wrap}.site-nav .nav-link{font-size:11px;padding:8px 0}
+
+/* =========================================================
+   FULLSCREEN PROJECT VIDEO VIEWER
+   ========================================================= */
+
+.video-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 40px;
+
+  background: rgba(5, 5, 8, 0.94);
+  backdrop-filter: blur(14px);
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition:
+    opacity 0.25s ease,
+    visibility 0.25s ease;
+}
+
+.video-modal.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.video-modal video {
+  width: min(1200px, 92vw);
+  max-height: 88vh;
+
+  border-radius: 18px;
+
+  object-fit: contain;
+
+  box-shadow:
+    0 0 60px rgba(140, 70, 255, 0.18),
+    0 20px 80px rgba(0, 0, 0, 0.6);
+}
+
+.video-modal-close {
+  position: absolute;
+
+  top: 24px;
+  right: 28px;
+
+  width: 48px;
+  height: 48px;
+
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.06);
+  color: white;
+
+  font-size: 30px;
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.video-modal-close:hover {
+  transform: rotate(90deg) scale(1.08);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Prevent the page from scrolling while the video is open */
+body.video-modal-open {
+  overflow: hidden;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+
+  .video-modal {
+    padding: 16px;
+  }
+
+  .video-modal video {
+    width: 96vw;
+    max-height: 80vh;
+    border-radius: 12px;
+  }
+
+  .video-modal-close {
+    top: 14px;
+    right: 14px;
+
+    width: 42px;
+    height: 42px;
+
+    font-size: 26px;
+  }
+}
  .contact-hero h2,.contact-hero .section-title{font-size:clamp(44px,13vw,72px)}
 }
