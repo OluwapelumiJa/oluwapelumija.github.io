@@ -365,3 +365,13 @@ document.addEventListener('keydown', (event) => {
   }
 
 });
+
+// =========================================================
+// PREVENT RIGHT-CLICK ON VIDEOS
+// =========================================================
+
+document.addEventListener('contextmenu', (e) => {
+  if (e.target.tagName === 'VIDEO') {
+    e.preventDefault();
+  }
+});
