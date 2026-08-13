@@ -236,9 +236,6 @@ footer { display:flex; justify-content:space-between; padding:22px 24px; color:#
   footer { flex-direction:column; gap:8px; }
 }
 
-.project-video { width:100%; height:100%; object-fit:cover; display:block; opacity:.88; transition:transform .6s var(--ease), filter .6s var(--ease); filter:saturate(.8); }
-.project-card:hover .project-video { transform:scale(1.04); filter:saturate(1.08); }
-
 
 /* ===== Final polish: rounded UI + reference-inspired cursor ===== */
 .btn, .nav-cta, .float-panel, .editor-window, .project-media, .discipline,
@@ -283,25 +280,62 @@ footer { display:flex; justify-content:space-between; padding:22px 24px; color:#
 
 .cursor-dot, .cursor-ring {
   position:fixed; pointer-events:none; z-index:9999; left:0; top:0;
-  transform:translate(-50%,-50%); opacity:0;
+  transform:translate3d(-50%,-50%,0); opacity:0;
+  will-change:left, top, width, height, transform, filter;
 }
 .cursor-dot {
-  width:5px; height:5px; border-radius:50%; background:#fff;
-  box-shadow:0 0 14px rgba(77,141,255,.8);
+  width:6px; height:6px; border-radius:50%; background:rgba(77,141,255,.9);
+  box-shadow:0 0 8px rgba(77,141,255,.9), 0 0 18px rgba(77,141,255,.9);
 }
 .cursor-ring {
-  width:34px; height:34px; border:1px solid rgba(77,141,255,.75); border-radius:50%;
-  transition:width .28s var(--ease), height .28s var(--ease), background .28s, border-color .28s, transform .18s;
+  width:36px; height:36px; border:1px solid rgba(77,141,255,.9); border-radius:50%;
+  background:rgba(77,141,255,.015);
+  transition:width .32s var(--ease), height .32s var(--ease), border-radius .32s var(--ease), background .32s, border-color .32s, box-shadow .32s, filter .22s;
 }
 .cursor-ring span {
   display:grid; place-items:center; height:100%; width:100%;
-  color:#8ab0ff; font:7px "JetBrains Mono"; letter-spacing:.08em; opacity:0;
+  color:#4882ff; font:7px "JetBrains Mono"; letter-spacing:.08em; opacity:0;
   transition:opacity .2s;
 }
 .cursor-ring.hover {
-  width:72px; height:72px; background:rgba(77,141,255,.08); border-color:#4d8dff;
+  width:70px; height:70px; background:rgba(77,141,255,.08); border-color:#4d8dff;
+  box-shadow:0 0 22px rgba(77,141,255,.16);
 }
 .cursor-ring.hover span { opacity:1; }
+
+/* Tall editorial cursor when hovering text, inspired by the supplied reference. */
+.cursor-ring.text-hover {
+    width: 25px;
+    height: 90px;
+
+    border-radius: 50px;
+
+    border-color: rgba(30, 115, 255, 0.95);
+
+    box-shadow:
+        0 0 10px rgba(30, 115, 255, 0.18),
+        0 0 24px rgba(30, 115, 255, 0.06);
+
+    filter: blur(0.15px);
+}
+.cursor-ring.text-hover::before,
+.cursor-ring.text-hover::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  border:1px solid rgba(40,125,255,.16);
+  border-radius:inherit;
+  pointer-events:none;
+}
+.cursor-ring.text-hover::before { transform:translateY(10px) scale(.985); opacity:.55; filter:blur(2px); }
+.cursor-ring.text-hover::after { transform:translateY(20px) scale(.97); opacity:.28; filter:blur(4px); }
+.cursor-dot.text-hover {
+  width:8px; height:8px;
+  box-shadow:0 0 8px rgba(255,255,255,1), 0 0 20px rgba(100,160,255,.95);
+}
+
+/* Keyboard focus should still feel intentional. */
+.project-card:focus-visible { outline:1px solid rgba(139,92,246,.75); outline-offset:5px; }
 @media (pointer:fine) {
   body, a, button, input, select, textarea, summary { cursor:none; }
 }
@@ -501,6 +535,25 @@ h1, h2, h3, .hero h1, .hero h2, .section-head h2, .contact h2,
     0 20px 80px rgba(0, 0, 0, 0.6);
 }
 
+.video-loading {
+  position:absolute;
+  left:50%; top:50%;
+  transform:translate(-50%,-50%);
+  z-index:2;
+  color:#aaa5b2;
+  font:8px "JetBrains Mono";
+  letter-spacing:.16em;
+  display:flex; align-items:center; gap:8px;
+  transition:opacity .2s ease;
+}
+.video-loading.hidden { opacity:0; pointer-events:none; }
+.video-loading-dot {
+  width:7px; height:7px; border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 14px rgba(139,92,246,.8);
+  animation:blink 1s infinite;
+}
+
 .video-modal-close {
   position: absolute;
 
@@ -600,23 +653,26 @@ body.video-modal-open {
   }
 }
 
-/* timeline shit*/
+/* Mobile timeline: keep the editing-timeline layout and allow horizontal scrolling. */
 @media (max-width: 768px) {
-
-  .timeline-track {
+  .scrub-area {
     overflow-x: auto;
     overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: thin;
-    padding-bottom: 12px;
+    padding-bottom: 18px;
   }
 
-  .timeline-track::-webkit-scrollbar {
+  .scrub-area::-webkit-scrollbar {
     height: 4px;
   }
 
-  .timeline-track > * {
-    flex-shrink: 0;
+  .life-track,
+  .time-ruler {
+    min-width: 700px;
   }
 
+  .life-clip {
+    flex-shrink: 0;
+  }
 }
