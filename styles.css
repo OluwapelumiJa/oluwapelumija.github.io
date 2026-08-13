@@ -451,6 +451,9 @@ h1, h2, h3, .hero h1, .hero h2, .section-head h2, .contact h2,
 @media(max-width:900px){.site-nav{gap:18px}.site-nav .nav-link{font-size:12px}}
 @media(max-width:680px){
  .site-nav{gap:11px;flex-wrap:wrap}.site-nav .nav-link{font-size:11px;padding:8px 0}
+ .contact-hero h2,.contact-hero .section-title{font-size:clamp(44px,13vw,72px)}
+}
+
 
 /* =========================================================
    FULLSCREEN PROJECT VIDEO VIEWER
@@ -555,6 +558,4 @@ body.video-modal-open {
 
     font-size: 26px;
   }
-}
- .contact-hero h2,.contact-hero .section-title{font-size:clamp(44px,13vw,72px)}
 }
