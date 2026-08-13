@@ -281,3 +281,89 @@ contactForm?.addEventListener('submit', async (e) => {
     }
   }
 });
+
+// =========================================================
+// FULL PROJECT VIDEO VIEWER
+// Hover = lightweight preview
+// Click = full-quality video
+// =========================================================
+
+const videoModal = document.querySelector('#videoModal');
+const fullProjectVideo = document.querySelector('#fullProjectVideo');
+const videoModalClose = document.querySelector('#videoModalClose');
+
+document.querySelectorAll('.project-card').forEach(card => {
+
+  card.addEventListener('click', (event) => {
+
+    // Don't trigger the fullscreen player when clicking
+    // an actual link or button inside the card.
+    if (event.target.closest('a, button')) return;
+
+    const video = card.querySelector('.project-video');
+
+    if (!video) return;
+
+    const source = video.querySelector('source');
+
+    if (!source) return;
+
+    // Get the full-quality video filename
+    let fullVideo = source.src;
+
+    // Replace the "-preview" part with the original filename.
+    fullVideo = fullVideo.replace('-preview.mp4', '.mp4');
+
+    // Load the full-quality video
+    fullProjectVideo.src = fullVideo;
+
+    videoModal.classList.add('active');
+    videoModal.setAttribute('aria-hidden', 'false');
+
+    document.body.classList.add('video-modal-open');
+
+    // Stop the hover preview
+    video.pause();
+
+    // Start the full-quality video
+    fullProjectVideo.play().catch(() => {});
+
+  });
+
+});
+
+function closeVideoModal() {
+
+  fullProjectVideo.pause();
+
+  fullProjectVideo.removeAttribute('src');
+  fullProjectVideo.load();
+
+  videoModal.classList.remove('active');
+  videoModal.setAttribute('aria-hidden', 'true');
+
+  document.body.classList.remove('video-modal-open');
+}
+
+videoModalClose?.addEventListener('click', closeVideoModal);
+
+// Clicking the dark background closes the player
+videoModal?.addEventListener('click', (event) => {
+
+  if (event.target === videoModal) {
+    closeVideoModal();
+  }
+
+});
+
+// ESC closes the player
+document.addEventListener('keydown', (event) => {
+
+  if (
+    event.key === 'Escape' &&
+    videoModal?.classList.contains('active')
+  ) {
+    closeVideoModal();
+  }
+
+});
