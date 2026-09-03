@@ -208,7 +208,6 @@ contactForm?.addEventListener('submit', async (e) => {
   // Get form fields
   const name = document.querySelector('#name')?.value.trim() || '';
   const email = document.querySelector('#email')?.value.trim() || '';
-  const projectTypeValue = document.querySelector('#projectType')?.value || '';
   const otherProjectValue = document.querySelector('#otherProject')?.value.trim() || '';
   const message = document.querySelector('#message')?.value.trim() || '';
 
@@ -219,7 +218,7 @@ contactForm?.addEventListener('submit', async (e) => {
       : projectTypeValue;
 
   // Basic validation
-  if (!name || !email || !project || !message) {
+  if (!name || !email || !message) {
     alert('Please fill in all required fields.');
     return;
   }
@@ -244,7 +243,6 @@ contactForm?.addEventListener('submit', async (e) => {
         body: JSON.stringify({
           name: name,
           email: email,
-          project: project,
           message: message
         })
       }
