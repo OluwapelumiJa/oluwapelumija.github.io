@@ -80,7 +80,7 @@ stats.forEach(s => statsObserver.observe(s));
 
 // Tiny "currently editing" rotation
 const statusText = document.querySelector('#statusText');
-const statuses = ['new ideas', 'a client project', 'motion tests', 'the next cut'];
+const statuses = ['new ideas', 'a client ', 'motion tests', 'the next cut'];
 let statusIndex = 0;
 setInterval(() => {
   if (!statusText) return;
@@ -208,18 +208,12 @@ contactForm?.addEventListener('submit', async (e) => {
   // Get form fields
   const name = document.querySelector('#name')?.value.trim() || '';
   const email = document.querySelector('#email')?.value.trim() || '';
-  const otherProjectValue = document.querySelector('#otherProject')?.value.trim() || '';
   const message = document.querySelector('#message')?.value.trim() || '';
 
   // If "Other" is selected, use the custom project type
-  const project =
-    projectTypeValue === 'Other'
-      ? otherProjectValue
-      : projectTypeValue;
-
   // Basic validation
-  if (!name || !email || !message) {
-    alert('Please fill in all required fields.');
+  if (!name || !email || !message){
+    alert('Please fill in all reqquired fields.');
     return;
   }
 
@@ -255,7 +249,7 @@ contactForm?.addEventListener('submit', async (e) => {
     }
 
     // Success
-    alert('Message sent successfully! I’ll get back to you soon.');
+    alert('Message sent successfully! I’ll get back to you soon :)');
 
     contactForm.reset();
 
